@@ -27,7 +27,7 @@
 
 ### 2. `builder.file_written` 事件（`agents/service.py` + `worker/main.py`）
 
-- `generate_source(..., on_file_written=None)`：`_file_tools` 的 `write_source` 成功写入后调用回调 `(path, content)`。
+- `generate_source(..., on_file_written=None)`：`agents/tools/worktree_files.py` 中 `build_worktree_tools` 的 `write_source` 成功写入后调用回调 `(path, content)`。
 - Worker 传入回调，持久化 `builder.file_written` 事件：`{path, content(≤30KB 截断), bytes}`。Repair 阶段复用同一事件类型。
 
 ## 前端改动
