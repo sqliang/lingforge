@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from lite_atoms.agents.builder import _build_reference_excerpts, _file_tools
+from lite_atoms.agents.tools.worktree_files import build_reference_excerpts, build_worktree_tools
 from lite_atoms.agents.errors import AgentAborted
 from lite_atoms.agents.titles import generate_project_title
 from lite_atoms.worker.main import RunCancelled, _raise_if_cancel_requested
@@ -19,7 +19,12 @@ def _callback(path: str, content: str) -> None:
 
 
 def _write_tool(worktree: Path, should_abort=None):
-    tools = {tool.name: tool for tool in _file_tools(worktree, on_file_written=_callback, should_abort=should_abort)}
+    tools = {
+        tool.name: tool
+        for tool in build_worktree_tools(
+            worktree, on_file_written=_callback, should_abort=should_abort
+        )
+    }
     return tools["write_source"]
 
 
@@ -55,7 +60,9 @@ def test_write_source_oversize_returns_guidance(tmp_path: Path) -> None:
 
 def test_write_source_aborts_between_tool_calls(tmp_path: Path) -> None:
     with pytest.raises(AgentAborted):
-        _write_tool(tmp_path, should_abort=lambda: True).invoke({"path": "src/App.tsx", "content": "x"})
+        _write_tool(tmp_path, should_abort=lambda: True).invoke(
+            {"path": "src/App.tsx", "content": "x"}
+        )
     assert not (tmp_path / "src" / "App.tsx").exists()
 
 
@@ -63,7 +70,7 @@ def test_all_tools_abort_when_cancel_requested(tmp_path: Path) -> None:
     """read/list/write must all unwind promptly once the owner cancels the Run."""
     (tmp_path / "src").mkdir()
     (tmp_path / "src" / "App.tsx").write_text("x")
-    tools = {tool.name: tool for tool in _file_tools(tmp_path, should_abort=lambda: True)}
+    tools = {tool.name: tool for tool in build_worktree_tools(tmp_path, should_abort=lambda: True)}
     with pytest.raises(AgentAborted):
         tools["read_source"].invoke({"path": "src/App.tsx"})
     with pytest.raises(AgentAborted):
@@ -103,14 +110,18 @@ def test_generate_project_title_rejects_empty_output() -> None:
 def test_reference_excerpts_line_range(tmp_path: Path) -> None:
     (tmp_path / "src").mkdir()
     (tmp_path / "src" / "App.tsx").write_text("l1\nl2\nl3\nl4\nl5")
-    excerpts = _build_reference_excerpts(tmp_path, [{"path": "src/App.tsx", "start_line": 2, "end_line": 4}])
-    assert excerpts == [{"path": "src/App.tsx", "start_line": 2, "end_line": 4, "excerpt": "2: l2\n3: l3\n4: l4"}]
+    excerpts = build_reference_excerpts(
+        tmp_path, [{"path": "src/App.tsx", "start_line": 2, "end_line": 4}]
+    )
+    assert excerpts == [
+        {"path": "src/App.tsx", "start_line": 2, "end_line": 4, "excerpt": "2: l2\n3: l3\n4: l4"}
+    ]
 
 
 def test_reference_excerpts_full_file_and_skips(tmp_path: Path) -> None:
     (tmp_path / "src").mkdir()
     (tmp_path / "src" / "App.tsx").write_text("hello")
-    excerpts = _build_reference_excerpts(
+    excerpts = build_reference_excerpts(
         tmp_path,
         [
             {"path": "src/App.tsx"},  # no line range → whole file
@@ -118,7 +129,9 @@ def test_reference_excerpts_full_file_and_skips(tmp_path: Path) -> None:
             {"path": "src/Missing.tsx"},  # missing → skipped
         ],
     )
-    assert excerpts == [{"path": "src/App.tsx", "start_line": None, "end_line": None, "excerpt": "hello"}]
+    assert excerpts == [
+        {"path": "src/App.tsx", "start_line": None, "end_line": None, "excerpt": "hello"}
+    ]
 
 
 def test_write_source_budget_rejects_new_files_but_allows_rewrites(tmp_path: Path) -> None:
