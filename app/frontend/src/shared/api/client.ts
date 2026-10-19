@@ -7,7 +7,17 @@
  */
 import { supabase } from '@/lib/supabase';
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+declare global {
+  interface Window {
+    /** Injected by the desktop preload; the loopback proxy base URL. */
+    __LITE_ATOMS_API_BASE_URL__?: string;
+  }
+}
+
+const apiBaseUrl =
+  (typeof window !== 'undefined' ? window.__LITE_ATOMS_API_BASE_URL__ : undefined) ??
+  import.meta.env.VITE_API_BASE_URL ??
+  'http://localhost:8000';
 
 export class ApiError extends Error {
   constructor(public readonly status: number, message: string) {
