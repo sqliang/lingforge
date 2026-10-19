@@ -1,0 +1,14 @@
+# Lite Atoms Dev edge proxy: three public origins, automatic HTTPS via Caddy.
+# BASE_DOMAIN is injected from .env.production (e.g. example.com).
+
+app.{$BASE_DOMAIN} {
+	reverse_proxy frontend:8080
+}
+
+api.{$BASE_DOMAIN} {
+	reverse_proxy api:8000
+}
+
+preview.{$BASE_DOMAIN} {
+	reverse_proxy preview:8080
+}
