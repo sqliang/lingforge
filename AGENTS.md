@@ -35,6 +35,7 @@ When code, a request, and these documents disagree, do not silently invent a new
 ## 4. Module and state rules
 
 - Follow the target layout in `docs/4-目录与前端模块设计.md`. Keep page components thin; place feature behavior in `features/<name>/`; use `shared/` only for genuinely cross-feature utilities.
+- `shared/platform/` is the only frontend module allowed to sense host (web/desktop) differences; desktop IPC may be exposed only through the preload whitelist.
 - Frontend state ownership is strict:
   - Supabase Auth + `AuthProvider`: user/session only.
   - TanStack Query: all server facts (Project, Contract, messages, Run, files, builds, versions, preview tickets).
