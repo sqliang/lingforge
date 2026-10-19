@@ -1,0 +1,43 @@
+# Production overlay: run the full stack behind Caddy with automatic HTTPS.
+#
+# Usage on a US-region VPS (Docker installed):
+#   docker compose --env-file .env.production \
+#     -f infra/compose.local.yml -f infra/compose.prod.yml up -d --build
+#
+# The overlay only adds the edge proxy and restart policies; every service keeps
+# its local behavior and reads configuration from .env.production.
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      # Root domain; the proxy serves app./api./preview. subdomains from it.
+      BASE_DOMAIN: ${BASE_DOMAIN:?Set BASE_DOMAIN in .env.production, e.g. example.com}
+    depends_on:
+      - frontend
+      - api
+      - preview
+
+  api:
+    restart: always
+
+  worker:
+    restart: always
+
+  frontend:
+    restart: always
+
+  preview:
+    restart: always
+
+  db:
+    restart: always
+
+volumes:
+  caddy-data:
+  caddy-config:
