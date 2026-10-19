@@ -1,0 +1,20 @@
+{
+  "name": "@lite-atoms/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron shell for the Lite Atoms web frontend",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "NODE_ENV=development electron .",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "electron": "^33.2.0",
+    "typescript": "^5.5.3",
+    "vitest": "^2.1.9"
+  }
+}
