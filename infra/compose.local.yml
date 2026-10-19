@@ -94,8 +94,8 @@ services:
 
   frontend:
     build:
-      context: ../app/frontend
-      dockerfile: Dockerfile
+      context: ../app
+      dockerfile: frontend/Dockerfile
       args:
         # The public browser client uses the same low-privilege Supabase values as
         # the API's Auth verifier. Do not substitute the service-role secret here.
