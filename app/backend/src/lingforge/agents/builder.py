@@ -14,9 +14,9 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
-from lite_atoms.agents.model import agent_session
-from lite_atoms.agents.prompts.builder import render_builder_prompt
-from lite_atoms.agents.tools.worktree_files import build_reference_excerpts, build_worktree_tools
+from lingforge.agents.model import agent_session
+from lingforge.agents.prompts.builder import render_builder_prompt
+from lingforge.agents.tools.worktree_files import build_reference_excerpts, build_worktree_tools
 
 
 def generate_source(

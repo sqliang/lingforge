@@ -15,10 +15,10 @@ import json
 import logging
 from typing import Any, Callable
 
-from lite_atoms.agents.errors import AgentAborted, AgentOutputError
-from lite_atoms.agents.model import _model, agent_session
-from lite_atoms.agents.prompts.planner import render_planner_instructions, render_retry_feedback
-from lite_atoms.application import repository
+from lingforge.agents.errors import AgentAborted, AgentOutputError
+from lingforge.agents.model import _model, agent_session
+from lingforge.agents.prompts.planner import render_planner_instructions, render_retry_feedback
+from lingforge.application import repository
 
 
 logger = logging.getLogger(__name__)

@@ -9,7 +9,7 @@ from uuid import UUID
 from dulwich.objects import Tree
 from dulwich.repo import Repo
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 MAX_FILE_BYTES = 200_000
 

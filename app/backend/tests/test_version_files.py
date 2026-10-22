@@ -7,7 +7,7 @@ from uuid import uuid4
 import pytest
 from dulwich import porcelain
 
-from lite_atoms.application import version_files
+from lingforge.application import version_files
 
 
 def _commit_file(repo_dir: Path, path: str, content: str, message: str) -> str:
@@ -26,7 +26,7 @@ def repo_setup(tmp_path: Path):
     porcelain.init(str(repo_dir))
     first = _commit_file(repo_dir, "src/App.tsx", "v1", "first")
     second = _commit_file(repo_dir, "src/App.tsx", "v2", "second")
-    with patch("lite_atoms.application.version_files.settings") as mock_settings:
+    with patch("lingforge.application.version_files.settings") as mock_settings:
         mock_settings.projects_root = tmp_path
         yield project_id, first, second
 

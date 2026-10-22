@@ -1,0 +1,6 @@
+# Local-only override: remap the frontend to 3100 when another process already
+# occupies 3000 (e.g. a separate dev server). Use together with compose.local.yml:
+#   docker compose --env-file .env -f infra/compose.local.yml -f infra/compose.local.port3100.yml up -d
+services:
+  frontend:
+    ports: !override ["3100:8080"]

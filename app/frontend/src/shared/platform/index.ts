@@ -4,7 +4,7 @@ import { webAdapter } from './web';
 
 declare global {
   interface Window {
-    liteAtoms?: DesktopBridge;
+    lingForge?: DesktopBridge;
   }
 }
 
@@ -13,8 +13,8 @@ declare global {
  * any renderer module, so the bridge is visible at module scope here.
  */
 export const platform: PlatformAdapter =
-  typeof window !== 'undefined' && window.liteAtoms
-    ? createDesktopAdapter(window.liteAtoms)
+  typeof window !== 'undefined' && window.lingForge
+    ? createDesktopAdapter(window.lingForge)
     : webAdapter;
 
 export type {

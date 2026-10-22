@@ -7,7 +7,7 @@ from uuid import UUID
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from lite_atoms.api.schemas import (
+from lingforge.api.schemas import (
     ContractResponse,
     ContractUpdateRequest,
     CreateProjectRequest,
@@ -20,12 +20,12 @@ from lite_atoms.api.schemas import (
     RunResponse,
     VersionResponse,
 )
-from lite_atoms.application import repository, version_files
-from lite_atoms.security.auth import CurrentUserId
-from lite_atoms.security.preview_ticket import issue_preview_ticket
-from lite_atoms.settings import settings
+from lingforge.application import repository, version_files
+from lingforge.security.auth import CurrentUserId
+from lingforge.security.preview_ticket import issue_preview_ticket
+from lingforge.settings import settings
 
-app = FastAPI(title="Lite Atoms Dev API", version="0.1.0")
+app = FastAPI(title="LingForge API", version="0.1.0")
 # Local workbench: any origin may call the API. Authentication is per-request bearer
 # tokens (no cookies, allow_credentials stays False), so a wildcard origin does not
 # widen the credential surface; ownership is still enforced on every endpoint.

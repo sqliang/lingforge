@@ -12,7 +12,7 @@ import psycopg
 from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 pool = ConnectionPool(
     settings.database_url,

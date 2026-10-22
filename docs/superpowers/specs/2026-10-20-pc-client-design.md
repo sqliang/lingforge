@@ -6,7 +6,7 @@
 
 ## 1. 目标与边界
 
-**远期目标**：Lite Atoms 的本地优先 Coding Agent PC 客户端（类似 Codex 桌面端）——本地运行 Agent、本地持久化，云端服务按需使用。
+**远期目标**：LingForge 的本地优先 Coding Agent PC 客户端（类似 Codex 桌面端）——本地运行 Agent、本地持久化，云端服务按需使用。
 
 **本迭代范围**：
 
@@ -37,7 +37,7 @@ app/
 │       │   └── index.ts             # 运行时探测，导出当前平台实例
 │       └── api/
 │           └── gateway.ts           # 新增：Tier 2 BackendGateway 接口，HTTP 实现收口现有 client
-└── desktop/                         # 新增：Electron 壳（包名 @lite-atoms/desktop）
+└── desktop/                         # 新增：Electron 壳（包名 @lingforge/desktop）
     ├── package.json
     ├── tsconfig.json
     └── electron/
@@ -56,9 +56,9 @@ interface PlatformAdapter {
 }
 ```
 
-- renderer 通过 preload 暴露的 `window.liteAtoms` 调用桌面能力
+- renderer 通过 preload 暴露的 `window.lingForge` 调用桌面能力
 - `web.ts` 所有能力返回不支持，`window` 为 `undefined`
-- 运行时探测：`window.liteAtoms` 存在则为 desktop，否则 web
+- 运行时探测：`window.lingForge` 存在则为 desktop，否则 web
 - 将来 PC 专属 UI 通过 `platform.kind === 'desktop'` 条件渲染或路由级覆盖
 
 ## 5. Tier 2：API 网关缝（本迭代只收口，不替换）

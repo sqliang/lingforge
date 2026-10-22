@@ -1,4 +1,4 @@
-# Lite Atoms Dev
+# 灵构 LingForge
 
 一个基于 AI 的开发者工作台，左侧为 AI 对话面板，右侧为代码编辑器/预览区域。深色主题，IDE 风格界面。
 

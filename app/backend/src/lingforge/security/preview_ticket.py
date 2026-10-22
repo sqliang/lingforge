@@ -5,7 +5,7 @@ from uuid import UUID
 
 from jose import JWTError, jwt
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 
 ALGORITHM = "HS256"

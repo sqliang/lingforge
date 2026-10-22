@@ -17,7 +17,7 @@ import httpx
 from fastapi import Depends, HTTPException, Request, status
 from jose import JWTError, jwt
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 _JWKS_CACHE_TTL_SECONDS = 600
 _jwks_cache: tuple[float, dict[str, Any]] | None = None

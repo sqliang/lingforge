@@ -8,15 +8,15 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from uuid import UUID, uuid4
 
-from lite_atoms.agents.builder import generate_source
-from lite_atoms.agents.errors import AgentAborted
-from lite_atoms.agents.planner import plan_contract
-from lite_atoms.agents.titles import generate_project_title
-from lite_atoms.application import repository
-from lite_atoms.execution.build_runner import run_build
-from lite_atoms.execution.validator import validate_source_tree
-from lite_atoms.execution.worktree import cleanup_worktree, create_worktree, promote_worktree
-from lite_atoms.infrastructure.db import transaction
+from lingforge.agents.builder import generate_source
+from lingforge.agents.errors import AgentAborted
+from lingforge.agents.planner import plan_contract
+from lingforge.agents.titles import generate_project_title
+from lingforge.application import repository
+from lingforge.execution.build_runner import run_build
+from lingforge.execution.validator import validate_source_tree
+from lingforge.execution.worktree import cleanup_worktree, create_worktree, promote_worktree
+from lingforge.infrastructure.db import transaction
 
 
 logging.basicConfig(level=logging.INFO)
@@ -134,7 +134,7 @@ def _promote(run: dict, worktree, build_id: UUID, summary: str) -> None:
     replace that copy without changing promotion semantics.
     """
     from shutil import copytree
-    from lite_atoms.settings import settings
+    from lingforge.settings import settings
 
     _transition(run["id"], "committing", "commit.started")
     commit_sha = promote_worktree(run["project_id"], worktree, "Generate application")

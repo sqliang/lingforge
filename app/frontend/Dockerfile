@@ -4,7 +4,7 @@ COPY pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY frontend/package.json frontend/package.json
 # Pin pnpm explicitly: Node 20 Corepack otherwise resolves its newest default,
 # which currently requires Node 22 and fails before dependency installation.
-RUN corepack enable && corepack prepare pnpm@10.33.1 --activate && pnpm install --frozen-lockfile --filter @lite-atoms/frontend
+RUN corepack enable && corepack prepare pnpm@10.33.1 --activate && pnpm install --frozen-lockfile --filter @lingforge/frontend
 COPY frontend/ frontend/
 WORKDIR /app/frontend
 ARG VITE_SUPABASE_URL

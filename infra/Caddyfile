@@ -1,4 +1,4 @@
-# Lite Atoms Dev edge proxy: three public origins, automatic HTTPS via Caddy.
+# LingForge edge proxy: three public origins, automatic HTTPS via Caddy.
 # BASE_DOMAIN is injected from .env.production (e.g. example.com).
 
 app.{$BASE_DOMAIN} {

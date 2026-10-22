@@ -1,8 +1,8 @@
 """Prompt render tests: role/persona wiring and interpolation for every agent role."""
 
-from lite_atoms.agents.prompts.builder import render_builder_prompt
-from lite_atoms.agents.prompts.planner import render_planner_instructions, render_retry_feedback
-from lite_atoms.agents.prompts.titles import render_title_prompt
+from lingforge.agents.prompts.builder import render_builder_prompt
+from lingforge.agents.prompts.planner import render_planner_instructions, render_retry_feedback
+from lingforge.agents.prompts.titles import render_title_prompt
 
 
 def test_builder_prompt_without_diagnostics_is_builder() -> None:
