@@ -10,12 +10,12 @@ import { supabase } from '@/lib/supabase';
 declare global {
   interface Window {
     /** Injected by the desktop preload; the loopback proxy base URL. */
-    __LITE_ATOMS_API_BASE_URL__?: string;
+    __LINGFORGE_API_BASE_URL__?: string;
   }
 }
 
 const apiBaseUrl =
-  (typeof window !== 'undefined' ? window.__LITE_ATOMS_API_BASE_URL__ : undefined) ??
+  (typeof window !== 'undefined' ? window.__LINGFORGE_API_BASE_URL__ : undefined) ??
   import.meta.env.VITE_API_BASE_URL ??
   'http://localhost:8000';
 

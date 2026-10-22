@@ -4,7 +4,7 @@ from contextlib import contextmanager
 from unittest.mock import MagicMock, patch
 from uuid import uuid4
 
-from lite_atoms.worker import main as worker
+from lingforge.worker import main as worker
 
 
 def _run(mode: str) -> dict:

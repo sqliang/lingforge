@@ -147,13 +147,13 @@ export default function ChatPanel({
   const [mode, setModeState] = useState<RunMode>(() => {
     const fromRoute = (location.state as { mode?: RunMode } | null)?.mode;
     if (fromRoute === 'build' || fromRoute === 'plan') return fromRoute;
-    const remembered = localStorage.getItem(`lite-atoms:mode:${projectId}`);
+    const remembered = localStorage.getItem(`lingforge:mode:${projectId}`);
     return remembered === 'plan' ? 'plan' : 'build';
   });
   /** 切换模式并记忆到本项目，作用于下一次发送 */
   const setMode = (next: RunMode) => {
     setModeState(next);
-    localStorage.setItem(`lite-atoms:mode:${projectId}`, next);
+    localStorage.setItem(`lingforge:mode:${projectId}`, next);
   };
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);

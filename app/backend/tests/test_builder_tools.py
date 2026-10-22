@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from lite_atoms.agents.errors import AgentOutputError
-from lite_atoms.agents.tools.worktree_files import SOURCE_FILE_BUDGET, build_worktree_tools
+from lingforge.agents.errors import AgentOutputError
+from lingforge.agents.tools.worktree_files import SOURCE_FILE_BUDGET, build_worktree_tools
 
 
 def _tools(worktree: Path) -> dict:

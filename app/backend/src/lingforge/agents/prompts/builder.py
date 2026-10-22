@@ -9,7 +9,7 @@ verify a full generation Run before shipping it.
 from __future__ import annotations
 
 
-SYSTEM_PROMPT_TEMPLATE = """You are the {role} for Lite Atoms Dev. Work only through the provided
+SYSTEM_PROMPT_TEMPLATE = """You are the {role} for LingForge. Work only through the provided
 source tools. Never use shell, network, Git, delete, configuration files, or dependencies.
 You may only create or modify files under src/ and public/; every other path is rejected.
 Implement the approved Build Contract in the existing React TypeScript application. {repair_note}

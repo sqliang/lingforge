@@ -5,8 +5,8 @@ import pytest
 from fastapi import HTTPException
 from jose import JWTError
 
-from lite_atoms.security import auth
-from lite_atoms.security.auth import current_user_id
+from lingforge.security import auth
+from lingforge.security.auth import current_user_id
 
 
 class _FakeRequest:

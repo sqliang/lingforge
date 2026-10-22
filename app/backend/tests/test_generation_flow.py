@@ -6,10 +6,10 @@ from unittest.mock import patch
 
 import pytest
 
-from lite_atoms.agents.tools.worktree_files import build_reference_excerpts, build_worktree_tools
-from lite_atoms.agents.errors import AgentAborted
-from lite_atoms.agents.titles import generate_project_title
-from lite_atoms.worker.main import RunCancelled, _raise_if_cancel_requested
+from lingforge.agents.tools.worktree_files import build_reference_excerpts, build_worktree_tools
+from lingforge.agents.errors import AgentAborted
+from lingforge.agents.titles import generate_project_title
+from lingforge.worker.main import RunCancelled, _raise_if_cancel_requested
 
 CALLBACK_CALLS: list[tuple[str, str]] = []
 
@@ -78,13 +78,13 @@ def test_all_tools_abort_when_cancel_requested(tmp_path: Path) -> None:
 
 
 def test_cancel_check_passes_without_request() -> None:
-    with patch("lite_atoms.worker.main.repository.cancel_requested", return_value=False):
+    with patch("lingforge.worker.main.repository.cancel_requested", return_value=False):
         _raise_if_cancel_requested("00000000-0000-0000-0000-000000000000")  # type: ignore[arg-type]
 
 
 def test_cancel_check_raises_after_request() -> None:
     with (
-        patch("lite_atoms.worker.main.repository.cancel_requested", return_value=True),
+        patch("lingforge.worker.main.repository.cancel_requested", return_value=True),
         pytest.raises(RunCancelled),
     ):
         _raise_if_cancel_requested("00000000-0000-0000-0000-000000000000")  # type: ignore[arg-type]
@@ -92,7 +92,7 @@ def test_cancel_check_raises_after_request() -> None:
 
 def test_generate_project_title_uses_model_text() -> None:
     response = SimpleNamespace(content='"Todo Manager"\n')
-    with patch("lite_atoms.agents.titles._model") as model:
+    with patch("lingforge.agents.titles._model") as model:
         model.return_value.invoke.return_value = response
         assert generate_project_title("帮我创建一个待办事项应用") == "Todo Manager"
 
@@ -100,7 +100,7 @@ def test_generate_project_title_uses_model_text() -> None:
 def test_generate_project_title_rejects_empty_output() -> None:
     response = SimpleNamespace(content="  \n")
     with (
-        patch("lite_atoms.agents.titles._model") as model,
+        patch("lingforge.agents.titles._model") as model,
         pytest.raises(ValueError, match="empty"),
     ):
         model.return_value.invoke.return_value = response

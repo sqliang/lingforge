@@ -18,10 +18,10 @@ class Settings(BaseSettings):
     platform_origin: str = "http://localhost:3000"
     api_origin: str = "http://localhost:8000"
     preview_origin: str = "http://localhost:8081"
-    projects_root: Path = Path("/var/lib/lite-atoms/projects")
-    artifacts_root: Path = Path("/var/lib/lite-atoms/artifacts")
+    projects_root: Path = Path("/var/lib/lingforge/projects")
+    artifacts_root: Path = Path("/var/lib/lingforge/artifacts")
     projects_volume_name: str = "infra_projects"
-    build_runner_image: str = "lite-atoms-build-runner:local"
+    build_runner_image: str = "lingforge-build-runner:local"
     preview_ticket_secret: str
 
 

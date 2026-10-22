@@ -10,7 +10,7 @@ from typing import Any, Callable
 
 from langchain_openai import ChatOpenAI
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 
 logger = logging.getLogger(__name__)

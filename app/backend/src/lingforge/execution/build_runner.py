@@ -7,7 +7,7 @@ import time
 import docker
 from docker.errors import DockerException
 
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 
 @dataclass(frozen=True)

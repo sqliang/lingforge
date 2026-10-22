@@ -18,7 +18,7 @@ from typing import Any, Callable
 
 from langchain_core.tools import tool
 
-from lite_atoms.agents.errors import AgentAborted, AgentOutputError
+from lingforge.agents.errors import AgentAborted, AgentOutputError
 
 
 WRITABLE_PREFIXES = ("src/", "public/")

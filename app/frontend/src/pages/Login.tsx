@@ -74,7 +74,7 @@ export default function LoginPage() {
               <Sparkles className="w-7 h-7 text-primary/70" />
             </div>
             <h1 className="text-xl font-bold text-foreground">
-              {isSignUp ? '创建账户' : '登录 Lite Atoms Dev'}
+              {isSignUp ? '创建账户' : '登录灵构 LingForge'}
             </h1>
             <p className="text-sm text-muted-foreground">
               {isSignUp ? '注册后即可开始使用' : '登录后开始构建你的项目'}

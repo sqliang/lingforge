@@ -1,3 +1,7 @@
+# Project name pins container/network names (lingforge-api-1 etc.) instead of
+# deriving them from the infra/ directory.
+name: lingforge
+
 services:
   # Local product database: Supabase cloud Postgres added ~0.5s RTT per round trip
   # on this network, which dominated every API call. Auth identity still comes from
@@ -9,7 +13,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./local-db-init/00_shim.sql:/docker-entrypoint-initdb.d/00_shim.sql:ro
-      - ../supabase/migrations/20260719_0001_lite_atoms.sql:/docker-entrypoint-initdb.d/01_migration.sql:ro
+      - ../supabase/migrations/20260719_0001_lingforge.sql:/docker-entrypoint-initdb.d/01_migration.sql:ro
       - ../supabase/migrations/20260720_0002_run_mode.sql:/docker-entrypoint-initdb.d/02_run_mode.sql:ro
       - ./local-db-init/02_local.sql:/docker-entrypoint-initdb.d/03_local.sql:ro
     healthcheck:
@@ -22,7 +26,7 @@ services:
     build:
       context: ..
       dockerfile: infra/build-runner/Dockerfile
-    image: lite-atoms-build-runner:local
+    image: lingforge-build-runner:local
     command: ["true"]
     restart: "no"
 
@@ -34,17 +38,17 @@ services:
     environment:
       # Product state goes to the local db service; .env's cloud URL stays for reference.
       DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
-      PROJECTS_ROOT: /var/lib/lite-atoms/projects
-      ARTIFACTS_ROOT: /var/lib/lite-atoms/artifacts
+      PROJECTS_ROOT: /var/lib/lingforge/projects
+      ARTIFACTS_ROOT: /var/lib/lingforge/artifacts
       PROJECTS_VOLUME_NAME: infra_projects
     ports: ["8000:8000"]
     volumes:
-      - projects:/var/lib/lite-atoms/projects
-      - artifacts:/var/lib/lite-atoms/artifacts
+      - projects:/var/lib/lingforge/projects
+      - artifacts:/var/lib/lingforge/artifacts
     # The named project volume is root-owned when Docker creates it. The API provisions
     # per-project directories there; it has no Docker socket or model/tool capability.
     user: "0:0"
-    command: ["/app/.venv/bin/uvicorn", "lite_atoms.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["/app/.venv/bin/uvicorn", "lingforge.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 5s
@@ -61,17 +65,17 @@ services:
     env_file: ../.env
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
-      PROJECTS_ROOT: /var/lib/lite-atoms/projects
-      ARTIFACTS_ROOT: /var/lib/lite-atoms/artifacts
+      PROJECTS_ROOT: /var/lib/lingforge/projects
+      ARTIFACTS_ROOT: /var/lib/lingforge/artifacts
       PROJECTS_VOLUME_NAME: infra_projects
     volumes:
-      - projects:/var/lib/lite-atoms/projects
-      - artifacts:/var/lib/lite-atoms/artifacts
+      - projects:/var/lib/lingforge/projects
+      - artifacts:/var/lib/lingforge/artifacts
       - /var/run/docker.sock:/var/run/docker.sock
     # Worker is the only trusted service allowed to reach Docker. Agent code never gets
     # this capability; it receives only constrained file tools inside the Worker process.
     user: "0:0"
-    command: ["/app/.venv/bin/python", "-m", "lite_atoms.worker.main"]
+    command: ["/app/.venv/bin/python", "-m", "lingforge.worker.main"]
     depends_on:
       api:
         condition: service_healthy
@@ -86,11 +90,11 @@ services:
       dockerfile: app/backend/Dockerfile
     env_file: ../.env
     environment:
-      ARTIFACTS_ROOT: /var/lib/lite-atoms/artifacts
+      ARTIFACTS_ROOT: /var/lib/lingforge/artifacts
     ports: ["8081:8080"]
     volumes:
-      - artifacts:/var/lib/lite-atoms/artifacts:ro
-    command: ["/app/.venv/bin/uvicorn", "lite_atoms.preview_gateway.main:app", "--host", "0.0.0.0", "--port", "8080"]
+      - artifacts:/var/lib/lingforge/artifacts:ro
+    command: ["/app/.venv/bin/uvicorn", "lingforge.preview_gateway.main:app", "--host", "0.0.0.0", "--port", "8080"]
 
   frontend:
     build:
@@ -108,7 +112,12 @@ services:
       api:
         condition: service_healthy
 
+# Volume names stay at their pre-rename values so existing local data (projects,
+# artifacts, database) survives the rename of the compose project to "lingforge".
 volumes:
   projects:
+    name: infra_projects
   artifacts:
+    name: infra_artifacts
   db-data:
+    name: infra_db-data

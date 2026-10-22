@@ -1,4 +1,4 @@
-# Lite Atoms Dev
+# 灵构 LingForge
 
 一个 AI 驱动的 React 应用生成工作台。用户用自然语言描述需求，系统经过「计划 → 审批 → 生成 → 校验 → 构建 → 提交 → 预览」的受控闭环，最终产出可运行的单页 React + TypeScript + Tailwind CSS 应用。
 
@@ -41,7 +41,7 @@
 3. **Node.js 20+** 和 `pnpm`（用于前端本地开发和构建）；
 4. **一个 Supabase 项目**：
    - 启用 Auth（邮箱验证）；
-   - 在 SQL Editor 中执行 `supabase/migrations/20260719_0001_lite_atoms.sql`；
+   - 在 SQL Editor 中执行 `supabase/migrations/20260719_0001_lingforge.sql`；
    - 准备两个已验证邮箱的测试用户；
 5. **一个支持 tool calling 的 OpenAI 兼容 API**：
    - OpenAI 官方 API；
@@ -55,7 +55,7 @@
 
 ```bash
 git clone <你的仓库地址>
-cd lite-atoms-dev
+cd lingforge
 ```
 
 ### 4.2 配置环境变量
@@ -82,9 +82,9 @@ MODEL_NAME=gpt-4.1-mini
 PLATFORM_ORIGIN=http://localhost:3000
 API_ORIGIN=http://localhost:8000
 PREVIEW_ORIGIN=http://localhost:8081
-PROJECTS_ROOT=/var/lib/lite-atoms/projects
-ARTIFACTS_ROOT=/var/lib/lite-atoms/artifacts
-BUILD_RUNNER_IMAGE=lite-atoms-build-runner:local
+PROJECTS_ROOT=/var/lib/lingforge/projects
+ARTIFACTS_ROOT=/var/lib/lingforge/artifacts
+BUILD_RUNNER_IMAGE=lingforge-build-runner:local
 PREVIEW_TICKET_SECRET=<随机长字符串，用于签发预览票据>
 
 # 前端构建时注入的变量
@@ -98,7 +98,7 @@ VITE_API_BASE_URL=http://localhost:8000
 ### 4.3 应用数据库迁移
 
 本地开发无需手动迁移：compose 的 `db` 服务（postgres:16-alpine）首次启动时自动执行
-`infra/local-db-init/` 下的 shim 与 `supabase/migrations/20260719_0001_lite_atoms.sql`。
+`infra/local-db-init/` 下的 shim 与 `supabase/migrations/20260719_0001_lingforge.sql`。
 本地运行时产品状态（项目、Run、事件等）写入该本地数据库（volume `infra_db-data`），
 Supabase 仅用于 Auth 身份验证；如需改回云端 Postgres，把 compose 中 api/worker 的
 `DATABASE_URL` 覆盖项移除并在 Supabase 项目的 SQL Editor 中执行上述迁移文件即可。
@@ -113,9 +113,9 @@ docker compose --env-file .env -f infra/compose.local.yml up --build
 
 首次启动会构建三个镜像：
 
-- `lite-atoms-build-runner:local`：构建运行器镜像；
-- `lite-atoms-api`：FastAPI 控制面；
-- `lite-atoms-frontend`：React 工作台。
+- `lingforge-build-runner:local`：构建运行器镜像；
+- `lingforge-api`：FastAPI 控制面；
+- `lingforge-frontend`：React 工作台。
 
 ### 4.5 访问本地服务
 
@@ -159,7 +159,7 @@ pnpm run dev
 ```bash
 cd app/backend
 uv sync
-uv run python -m lite_atoms.api.main
+uv run python -m lingforge.api.main
 ```
 
 API 默认运行在 http://localhost:8000。Worker 需要 Docker socket 才能执行构建，建议在容器中运行：
@@ -263,7 +263,7 @@ server {
 ```bash
 # 1. 上传代码到服务器
 git clone <你的仓库地址>
-cd lite-atoms-dev
+cd lingforge
 
 # 2. 配置生产环境变量
 cp .env.example .env
@@ -279,7 +279,7 @@ curl https://api.yourdomain.com/health
 ### 6.5 更新部署
 
 ```bash
-cd lite-atoms-dev
+cd lingforge
 git pull
 docker compose --env-file .env -f infra/compose.local.yml up -d --build
 ```
@@ -333,12 +333,12 @@ docker compose --env-file .env -f infra/compose.local.yml up -d --build
 
 ## 9. 常见问题
 
-**Q：启动时提示 `lite-atoms-build-runner:local` 镜像不存在？**
+**Q：启动时提示 `lingforge-build-runner:local` 镜像不存在？**
 
 A：Compose 文件中的 `build-runner` 服务会在 `up` 时构建该镜像。如果仍失败，可手动构建：
 
 ```bash
-docker build -t lite-atoms-build-runner:local -f infra/build-runner/Dockerfile .
+docker build -t lingforge-build-runner:local -f infra/build-runner/Dockerfile .
 ```
 
 **Q：模型调用报错或生成失败？**

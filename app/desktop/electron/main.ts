@@ -10,7 +10,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { startApiProxy, type ApiProxy } from './proxy';
 
 const DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL ?? 'http://localhost:3000';
-const API_TARGET = process.env.LITE_ATOMS_API_TARGET ?? 'http://localhost:8000';
+const API_TARGET = process.env.LINGFORGE_API_TARGET ?? 'http://localhost:8000';
 
 let proxy: ApiProxy | undefined;
 let ipcRegistered = false;
@@ -50,7 +50,7 @@ async function createWindow(): Promise<void> {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true,
-      additionalArguments: [`--lite-atoms-api-base=${proxy.baseUrl}`],
+      additionalArguments: [`--lingforge-api-base=${proxy.baseUrl}`],
     },
   });
 

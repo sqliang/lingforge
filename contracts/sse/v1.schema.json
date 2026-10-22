@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "lite-atoms/sse/v1",
+  "$id": "lingforge/sse/v1",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "runId", "sequence", "at", "payload"],

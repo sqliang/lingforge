@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "lite-atoms/build-contract/v1",
+  "$id": "lingforge/build-contract/v1",
   "type": "object",
   "additionalProperties": false,
   "required": ["productGoal", "features", "pageStructure", "dataModels", "componentPlan", "statePlan", "acceptanceCriteria", "outOfScope"],

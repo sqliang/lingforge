@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from lite_atoms.execution.validator import SourcePolicyError, validate_source_tree
+from lingforge.execution.validator import SourcePolicyError, validate_source_tree
 
 
 def write_minimal_project(root: Path, source: str = "export const value = 1;") -> None:

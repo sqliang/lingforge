@@ -1,7 +1,7 @@
 [project]
-name = "lite-atoms-backend"
+name = "lingforge-backend"
 version = "0.1.0"
-description = "API and worker for Lite Atoms Dev"
+description = "API and worker for LingForge"
 requires-python = ">=3.11"
 dependencies = [
   "deepagents>=0.1.0",

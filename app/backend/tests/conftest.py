@@ -1,6 +1,6 @@
 """Test-wide environment defaults.
 
-`lite_atoms.settings` instantiates at import time and requires secrets; tests that import
+`lingforge.settings` instantiates at import time and requires secrets; tests that import
 settings-dependent modules (agents, API) must see harmless placeholder values instead of
 real credentials. `setdefault` keeps any real environment in control.
 """

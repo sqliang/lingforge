@@ -1,8 +1,8 @@
 """Semantic project naming via one bounded plain model call."""
 
-from lite_atoms.agents.errors import AgentOutputError
-from lite_atoms.agents.model import _model
-from lite_atoms.agents.prompts.titles import render_title_prompt
+from lingforge.agents.errors import AgentOutputError
+from lingforge.agents.model import _model
+from lingforge.agents.prompts.titles import render_title_prompt
 
 
 def generate_project_title(prompt: str) -> str:

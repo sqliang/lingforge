@@ -6,11 +6,11 @@ from uuid import UUID
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, RedirectResponse
 
-from lite_atoms.security.preview_ticket import verify_preview_ticket
-from lite_atoms.settings import settings
+from lingforge.security.preview_ticket import verify_preview_ticket
+from lingforge.settings import settings
 
 
-app = FastAPI(title="Lite Atoms Preview Gateway")
+app = FastAPI(title="LingForge Preview Gateway")
 
 
 def _artifact_directory(artifact_id: UUID) -> Path:

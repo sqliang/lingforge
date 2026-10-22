@@ -31,7 +31,7 @@ export interface PlatformAdapter {
   info(): Promise<PlatformInfo>;
 }
 
-/** Bridge shape exposed by the desktop preload script on `window.liteAtoms`. */
+/** Bridge shape exposed by the desktop preload script on `window.lingForge`. */
 export interface DesktopBridge {
   window: WindowControls;
   info(): Promise<PlatformInfo>;

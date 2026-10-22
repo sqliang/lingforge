@@ -1,4 +1,4 @@
-# Lite Atoms Dev — AI Coding Guide
+# 灵构 LingForge — AI Coding Guide
 
 This repository is an AI development workbench, not a static UI demo. Generated code must preserve the product's trust boundary: users create constrained React apps; the platform validates, builds, versions, and previews them safely.
 

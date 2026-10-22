@@ -11,7 +11,7 @@ from uuid import UUID
 
 from dulwich import porcelain
 from dulwich.repo import Repo
-from lite_atoms.settings import settings
+from lingforge.settings import settings
 
 
 TEMPLATE_ROOT = Path(os.getenv("TEMPLATE_ROOT", "/app/templates/react-vite-tailwind"))
@@ -21,7 +21,7 @@ class WorktreeError(RuntimeError):
     """Raised when deterministic repository setup or commit creation fails."""
 
 
-COMMITTER = b"Lite Atoms Worker <worker@lite-atoms.local>"
+COMMITTER = b"LingForge Worker <worker@lingforge.local>"
 BUILD_UID = 10001
 BUILD_GID = 10001
 

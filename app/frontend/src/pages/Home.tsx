@@ -165,7 +165,7 @@ export default function HomePage() {
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
               <Layers className="w-3.5 h-3.5 text-primary-foreground" />
             </div>
-            <span className="text-sm font-semibold text-foreground">Lite Atoms Dev</span>
+            <span className="text-sm font-semibold text-foreground">灵构 LingForge</span>
           </div>
         </div>
 

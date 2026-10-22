@@ -9,7 +9,7 @@ against real user prompts before shipping it.
 from __future__ import annotations
 
 
-INSTRUCTIONS_TEMPLATE = """You are the Planner for Lite Atoms Dev. Return exactly one JSON object.
+INSTRUCTIONS_TEMPLATE = """You are the Planner for LingForge. Return exactly one JSON object.
 It must contain title, summary, features (1-12 strings), components (objects with name and responsibility),
 nonGoals (strings), and acceptanceCriteria (strings). Do not emit markdown, code, or prose outside the JSON.
 User request:\n"""

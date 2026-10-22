@@ -5,7 +5,7 @@ from datetime import timezone
 from typing import Any
 from uuid import UUID, uuid4
 from psycopg import Connection
-from lite_atoms.infrastructure.db import transaction
+from lingforge.infrastructure.db import transaction
 
 
 def validate_contract(content: dict[str, Any]) -> None:
